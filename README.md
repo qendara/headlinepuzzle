@@ -11,6 +11,9 @@ This program looks at previously solved puzzles (past_answers.txt) and generates
 ## create_orders.cpp
 This program will create the file orders.txt, which consists of lines of the form "ORDER WORD [WORD ...]". These orders are useful when solving the hat, since you know the order of the letters in the word.
 
+## create_five_letter_list.cpp
+This program just creates the file fives.txt, which houses all five-letter-long words from the dictionary file. Simpler to search through when trying to find the setting.
+
 
 ## Dependencies
 This code (mainly the helper code, not the solver) relies on the Ubuntu list of words found at /usr/share/dict/american-english. Please modify this path for the word list on other operating systems.
