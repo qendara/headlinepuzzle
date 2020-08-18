@@ -19,6 +19,8 @@ class Menu {
         void solveUsingAlphabet();
         void guessHeadline();
         void decimateAlphabet();
+        void findHatInDict();
+        void findHatInFile();
 
     private:
         Solver* solver;

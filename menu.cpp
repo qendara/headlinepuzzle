@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
 #include "solver.h"
 #include "headline.h"
@@ -28,6 +29,8 @@ void Menu::mainMenu() {
         "Solve individual headline based on word patterns",
         "Decimate alphabet",
         "Solve all headlines using given alphabet",
+        "Find hat in dictionary",
+        "Find hat in file",
         "Exit"
     };
 
@@ -61,6 +64,12 @@ void Menu::mainMenu() {
                     break;
                 case 5:
                     solveUsingAlphabet();
+                    break;
+                case 6:
+                    findHatInDict();
+                    break;
+                case 7:
+                    findHatInFile();
                     break;
                 default:
                     cout << GREEN << "Thanks for playing!\n" << DEFAULT;
@@ -157,5 +166,42 @@ void Menu::decimateAlphabet() {
         cout << "\n";
     }
     cout << "\n";
+
+}
+
+void Menu::findHatInDict() {
+    string order;
+    cout << "Enter pattern of hat (starting with 0!): ";
+    getline(cin, order);
+
+    // import orders.txt
+    map<string, vector<string> > orders;
+    ifstream orders_dict("orders.txt");
+    string line;
+    string key;
+    string word;
+
+    while (getline(orders_dict, line)) {
+        istringstream s(line);
+        s >> key;
+        orders.insert(make_pair(key, vector<string>()));
+
+        while (s >> word) {
+            orders[key].push_back(word);
+        }
+    }
+    orders_dict.close();
+
+    if (orders.find(order) != orders.end()) {
+        for(int i=0; i<orders[order].size(); i++) {
+            cout << orders[order][i] << "\n";
+        }
+    } else {
+        cout << "No matches found.\n";
+    }
+
+}
+
+void Menu::findHatInFile() {
 
 }
