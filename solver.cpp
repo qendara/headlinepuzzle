@@ -1,4 +1,7 @@
 #include <iostream>
+#include <algorithm>
+#include <fstream>
+#include <iterator>
 
 #include "solver.h"
 #include "headline.h"
@@ -59,10 +62,42 @@ void Solver::solveAllUsingAlphabet() {
     // saving everything into a vector of strings before printing
     // will have to insert things into the string though? or just print letter at
     // a time? no, inserting things better, I think
-    cout << spaced(alphabet.getOffset(0)) << "\n\n";
+    cout << " " << spaced(alphabet.getOffset(0)) << "\n\n";
+
+    ifstream fives_file("fives.txt");
+    string word;
+    vector<string> fives;
+    while(getline(fives_file, word)) {
+        fives.push_back(word);
+    }
+    fives_file.close();
+
+    vector<string> alphabets(5);
+    vector<int> positions;
+    for (int i=0; i<5; i++) {
+        alphabets[i] = headlines[i]->get_alphabet();
+    }
+    for (int i=0; i<26; i++) {
+        string word;
+        for (int j=0; j<5; j++) {
+            word += alphabets[j][i];
+        }
+        // see if word in five-letter word list
+        if (find(fives.begin(), fives.end(), word) != fives.end()) {
+            positions.push_back(i);
+        }
+        // if it is, save i to positions
+    }
 
     for (int i=0; i<5; i++) {
-        cout << spaced(headlines[i]->get_alphabet()) << "\n";
+        for (int j=0; j<26; j++) {
+            if (find(positions.begin(), positions.end(), j) != positions.end()) {
+                cout << RED << " " << alphabets[i][j] << DEFAULT;
+            } else {
+                cout << " " << alphabets[i][j];
+            }
+        }
+        cout << "\n";
     }
 
     cout << "\n";

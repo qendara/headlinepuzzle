@@ -13,6 +13,8 @@ INCLUDES= \
 	menu.cpp \
 	main.cpp
 
+fives: create_five_letter_list.cpp common.h common.cpp
+	g++ -o fives common.cpp create_five_letter_list.cpp -I.
 
 patterns: create_patterns.cpp common.h common.cpp
 	g++ -o patterns common.cpp create_patterns.cpp -I.

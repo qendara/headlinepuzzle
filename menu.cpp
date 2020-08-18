@@ -6,19 +6,12 @@
 #include "solver.h"
 #include "headline.h"
 #include "alphabet.h"
+#include "common.h"
 
 #include "menu.h"
 
 using namespace std;
 
-
-string RED = "\e[31m";
-string GREEN = "\e[32m";
-string YELLOW = "\e[33m";
-string BLUE = "\e[34m";
-string MAGENTA = "\e[35m";
-string CYAN = "\e[36m";
-string DEFAULT = "\e[39m";
 
 Menu::Menu() {
     solver = new Solver();
