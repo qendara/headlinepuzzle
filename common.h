@@ -6,8 +6,10 @@
 using namespace std;
 
 bool isAlpha(char c); 
+bool isNotAlpha(char c);
 
 string create_pattern(string word);
+string create_order(string word);
 
 char upper(char s);
 char lower(char s);

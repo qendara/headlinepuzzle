@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <algorithm>
 
 #include "solver.h"
 #include "headline.h"
@@ -203,5 +204,55 @@ void Menu::findHatInDict() {
 }
 
 void Menu::findHatInFile() {
+    cout << "Please enter file to search through: ";
+    string filename;
+    getline(cin, filename);
+
+    ifstream file;
+    file.open(filename);
+    if (file.fail()) {
+        cout << "ERROR opening file.\n";
+        return;
+    }
+
+    stringstream buffer;
+    buffer << file.rdbuf();
+    string whole_file = buffer.str();
+
+    file.close();
+
+    string order;
+    cout << "Enter pattern of hat (starting with 0!): ";
+    getline(cin, order);
+
+    // determine length of order
+    int len = order.length();
+    if (len > 11) {
+        len = len - (len-10)/2;
+    }
+
+    // free buffer.str() of all non-letter characters (after capitalizing it all)
+    transform(whole_file.begin(), whole_file.end(), whole_file.begin(), upper);
+    whole_file.erase(remove_if(whole_file.begin(), whole_file.end(), isNotAlpha), whole_file.end());
+
+    vector<string> matches;
+
+    // from 0 to end-length, create order, compare to order, discard if different
+    for (int i=0; i<whole_file.length()-len; i++) {
+        string word = whole_file.substr(i, len);
+        string pat = create_order(word);
+        if (pat == order) {
+            matches.push_back(word);
+        }
+    }
+
+    for (int i=0; i<matches.size(); i++) {
+        cout << matches[i] << "\n";
+    }
+
+    if (matches.size() == 0) {
+        cout << "No matches found\n";
+    }
+
 
 }

@@ -1,5 +1,7 @@
 #include <string>
 #include <algorithm>
+#include <sstream>
+#include <vector>
 
 #include "common.h"
 
@@ -9,6 +11,35 @@ bool isAlpha(char c) {
     return (c >= 0x41 && c <= 0x5a);
 }
 
+bool isNotAlpha(char c) {
+    return !isAlpha(c);
+}
+
+string create_order(string word) {
+    vector<int> order(word.length());
+    int curNum = 0;
+    int pastPos = 0;
+    char curLet = 'A';
+
+    while(curLet <= 'Z') {
+        int pos = word.find(curLet, pastPos);
+        if (pos == string::npos) {
+            curLet++;
+            pastPos = 0;
+        } else {
+            order[pos] = curNum;
+            curNum++;
+            pastPos = pos+1;
+        }
+    }
+
+    ostringstream os;
+    for (int i=0; i<order.size(); i++) {
+        os << order[i];
+    }
+
+    return os.str();
+}
 
 string create_pattern(string word) {
     string pat;
