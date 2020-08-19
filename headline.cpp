@@ -219,7 +219,7 @@ void Headline::guessPlain() {
             cout << "[" << j+1 << "] " << cipherWords[i].second[j] << "\n";
         }
 
-        cout << "Enter number of plaintext word, or 0 for none of these: ";
+        cout << BLUE << "Enter number of plaintext word, or 0 for none of these: " << DEFAULT;
 
         int entry = 0;
         string s;
@@ -253,8 +253,9 @@ void Headline::guessPlain() {
 
     }
 
-    cout << "Final result: \n";
+    cout << GREEN << "Final result: \n" << MAGENTA;
     copy(plainWords.begin(), plainWords.end(), ostream_iterator<string>(cout, " "));
+    cout << DEFAULT;
 
     // notes: if user doesn't select an option, still replace letters
     //   maybe allow users second chance to select it??? maybe not

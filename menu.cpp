@@ -43,7 +43,7 @@ void Menu::mainMenu() {
         }
 
         string entry;
-        cout << "Please enter menu option: ";
+        cout << BLUE << "Please enter menu option: " << DEFAULT;
         getline(cin, entry);
         istringstream instr(entry);
         instr >> choice;
@@ -85,12 +85,12 @@ void Menu::setHeadlines() {
     string headline;
 
     for (int i=1; i<6; i++) {
-        cout << "Please enter enciphered headline " << i << ": ";
+        cout << BLUE << "Please enter enciphered headline " << i << ": " << DEFAULT;
         getline(cin, headline);
         solver->setHeadline(i, new Headline(headline));
     }
 
-    cout << "All five headlines have been set\n";
+    cout << GREEN << "All five headlines have been set\n" << DEFAULT;
 }
 
 void Menu::setAlphabet() {
@@ -98,28 +98,27 @@ void Menu::setAlphabet() {
     Alphabet alpha;
     string lets;
     while (! alpha.setAlphabet(lets)) {
-        cout << "Please enter valid alphabet: ";
+        cout << BLUE << "Please enter valid alphabet: " << DEFAULT;
         getline(cin, lets);
     }
 
     solver->setAlphabet(alpha);
 
-    cout << "Alphabet has been set.\n";
+    cout << GREEN << "Alphabet has been set.\n" << DEFAULT;
 }
 
 void Menu::solveUsingAlphabet() {
-    cout << "Solve using alphabet\n";
 
     // check that headlines are filled in
     // should be enough to just check the first one
     if (solver->getHeadline(1) == NULL) {
-        cout << "Please first enter the five headlines.\n";
+        cout << YELLOW << "Please first enter the five headlines.\n" << DEFAULT;
         setHeadlines();
     }
 
     // check that alphabet is filled in
     if (solver->getAlphabet().getOffset(0) == "") {
-        cout << "Please first enter the alphabet to use.\n";
+        cout << YELLOW << "Please first enter the alphabet to use.\n" << DEFAULT;
         setAlphabet();
     }
 
@@ -128,11 +127,11 @@ void Menu::solveUsingAlphabet() {
 
 void Menu::guessHeadline() {
     if (solver->getHeadline(1) == NULL) {
-        cout << "Please first enter the five headlines.\n";
+        cout << YELLOW << "Please first enter the five headlines.\n" << DEFAULT;
         setHeadlines();
     }
 
-    cout << "Which headline would you like to solve? (1-5) ";
+    cout << BLUE << "Which headline would you like to solve? (1-5) " << DEFAULT;
     string ans;
     int choice = 0;
     getline(cin, ans);
@@ -146,7 +145,7 @@ void Menu::guessHeadline() {
 
 void Menu::decimateAlphabet() {
     if (solver->getAlphabet().getOffset(0) == "") {
-        cout << "Please first enter the alphabet to use.\n";
+        cout << YELLOW << "Please first enter the alphabet to use.\n" << DEFAULT;
         setAlphabet();
     }
     vector<int> offsets = {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25};
@@ -172,7 +171,7 @@ void Menu::decimateAlphabet() {
 
 void Menu::findHatInDict() {
     string order;
-    cout << "Enter pattern of hat (starting with 0!): ";
+    cout << BLUE << "Enter pattern of hat (starting with 0!): " << DEFAULT;
     getline(cin, order);
 
     // import orders.txt
@@ -198,20 +197,20 @@ void Menu::findHatInDict() {
             cout << orders[order][i] << "\n";
         }
     } else {
-        cout << "No matches found.\n";
+        cout << RED << "No matches found.\n" << DEFAULT;
     }
 
 }
 
 void Menu::findHatInFile() {
-    cout << "Please enter file to search through: ";
+    cout << BLUE << "Please enter file to search through: " << DEFAULT;
     string filename;
     getline(cin, filename);
 
     ifstream file;
     file.open(filename);
     if (file.fail()) {
-        cout << "ERROR opening file.\n";
+        cout << RED << "ERROR opening file.\n" << DEFAULT;
         return;
     }
 
@@ -222,7 +221,7 @@ void Menu::findHatInFile() {
     file.close();
 
     string order;
-    cout << "Enter pattern of hat (starting with 0!): ";
+    cout << BLUE << "Enter pattern of hat (starting with 0!): " << DEFAULT;
     getline(cin, order);
 
     // determine length of order
@@ -251,7 +250,7 @@ void Menu::findHatInFile() {
     }
 
     if (matches.size() == 0) {
-        cout << "No matches found\n";
+        cout << RED << "No matches found\n" << DEFAULT;
     }
 
 
