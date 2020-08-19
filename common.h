@@ -7,6 +7,7 @@ using namespace std;
 
 bool isAlpha(char c); 
 bool isNotAlpha(char c);
+bool isEmpty(string s);
 
 string create_pattern(string word);
 string create_order(string word);

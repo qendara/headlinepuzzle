@@ -15,6 +15,10 @@ bool isNotAlpha(char c) {
     return !isAlpha(c);
 }
 
+bool isEmpty(string s) {
+    return s == "";
+}
+
 string create_order(string word) {
     vector<int> order(word.length());
     int curNum = 0;
