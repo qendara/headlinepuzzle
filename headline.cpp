@@ -255,11 +255,56 @@ void Headline::guessPlain() {
 
     cout << GREEN << "Final result: \n" << MAGENTA;
     copy(plainWords.begin(), plainWords.end(), ostream_iterator<string>(cout, " "));
-    cout << DEFAULT;
+    cout << DEFAULT << "\n";
 
     // notes: if user doesn't select an option, still replace letters
     //   maybe allow users second chance to select it??? maybe not
 
     // maybe output stringed letters TODO
+    cout << GREEN << "Chained letters:\n" << CYAN;
+    vector<string> chains = chainLetters(letterMap);
+    for (int i=0; i<chains.size(); i++) {
+        cout << chains[i] << "\n";
+    }
+    cout << DEFAULT << "\n";
+
+}
+
+vector<string> Headline::chainLetters(map<char, char> letterMap) {
+    vector<string> chains;
+    map<char, char> reversed;
+    map<char, char>::iterator i;
+    for (i=letterMap.begin(); i!=letterMap.end(); i++) {
+        reversed[i->second] = i->first;
+    }
+
+    for (i=reversed.begin(); i!=reversed.end(); i++) {
+        string word;
+        word += i->first;
+        word += i->second;
+        char c = i->second;
+        while (reversed.find(c) != reversed.end()) {
+            word += reversed[c];
+            c = reversed[c];
+        }
+        chains.push_back(word);
+    }
+
+    // now dedupe the chains?
+    for (int j=0; j<chains.size(); j++) {
+        string curChain = chains[j];
+        for (int k=0; k<chains.size(); k++) {
+            if (k == j) {
+                continue;
+            }
+            if ((chains[k]).find(curChain) != string::npos) {
+                chains[j] = "";
+            }
+        }
+    }
+
+    chains.erase(remove_if(chains.begin(), chains.end(), isEmpty), chains.end());
+
+    return chains;
 
 }

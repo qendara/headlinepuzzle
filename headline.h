@@ -23,6 +23,7 @@ class Headline {
         string translate(int off);
         string replaceLetters(string word, map<char, char> letterMap);
         vector<string> condenseMatches(string cipher, vector<string> matches, map<char, char> letterMap);
+        vector<string> chainLetters(map<char, char> letterMap);
         string cipher;
         string plain;
         Alphabet alphabet;
